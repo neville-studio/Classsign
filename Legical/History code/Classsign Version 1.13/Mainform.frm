@@ -1,0 +1,1063 @@
+VERSION 5.00
+Begin VB.Form Mainform 
+   BackColor       =   &H00FFFFFF&
+   Caption         =   "班级签到簿"
+   ClientHeight    =   10125
+   ClientLeft      =   4275
+   ClientTop       =   960
+   ClientWidth     =   6570
+   Icon            =   "Mainform.frx":0000
+   KeyPreview      =   -1  'True
+   LinkTopic       =   "Form1"
+   ScaleHeight     =   10125
+   ScaleWidth      =   6570
+   StartUpPosition =   2  '屏幕中心
+   Begin VB.Timer formfocus 
+      Interval        =   50
+      Left            =   2880
+      Top             =   7320
+   End
+   Begin VB.Timer undolimit 
+      Interval        =   1000
+      Left            =   2280
+      Top             =   7320
+   End
+   Begin VB.CommandButton UndoCommand 
+      Caption         =   "撤消"
+      Enabled         =   0   'False
+      Height          =   375
+      Left            =   2280
+      TabIndex        =   17
+      Top             =   8640
+      Width           =   1935
+   End
+   Begin VB.Timer zttimer 
+      Interval        =   1000
+      Left            =   3840
+      Top             =   6840
+   End
+   Begin VB.Timer zrshx 
+      Interval        =   100
+      Left            =   3360
+      Top             =   6840
+   End
+   Begin VB.Timer passwordTimer 
+      Enabled         =   0   'False
+      Interval        =   1000
+      Left            =   2880
+      Top             =   6840
+   End
+   Begin VB.Timer lineTimer 
+      Interval        =   100
+      Left            =   2280
+      Top             =   6840
+   End
+   Begin VB.CommandButton zrsCommand 
+      Caption         =   "值日生签到"
+      Enabled         =   0   'False
+      Height          =   375
+      Left            =   2280
+      TabIndex        =   14
+      Top             =   2280
+      Width           =   1935
+   End
+   Begin VB.CommandButton AdminCommand 
+      Caption         =   "管理员操作"
+      Height          =   375
+      Left            =   2280
+      TabIndex        =   13
+      Top             =   3120
+      Width           =   1935
+   End
+   Begin VB.TextBox PasswordText 
+      Height          =   270
+      Left            =   2280
+      TabIndex        =   12
+      Text            =   "输入管理员密码操作"
+      Top             =   2760
+      Width           =   1935
+   End
+   Begin VB.CommandButton outputCommand 
+      Caption         =   "输出记录"
+      Enabled         =   0   'False
+      Height          =   375
+      Left            =   2280
+      TabIndex        =   10
+      Top             =   3600
+      Width           =   1935
+   End
+   Begin VB.CommandButton qiandaoCommand 
+      Caption         =   "签到"
+      Enabled         =   0   'False
+      Height          =   375
+      Left            =   2280
+      TabIndex        =   9
+      Top             =   1080
+      Width           =   1935
+   End
+   Begin VB.ComboBox NameCombo 
+      BeginProperty Font 
+         Name            =   "宋体"
+         Size            =   15
+         Charset         =   134
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   420
+      Left            =   2280
+      Sorted          =   -1  'True
+      TabIndex        =   8
+      Top             =   360
+      Width           =   1935
+   End
+   Begin VB.ListBox recordsList 
+      ForeColor       =   &H00000000&
+      Height          =   780
+      Index           =   1
+      Left            =   4320
+      TabIndex        =   5
+      Top             =   8760
+      Width           =   2175
+   End
+   Begin VB.ListBox recordsList 
+      ForeColor       =   &H00000000&
+      Height          =   8160
+      Index           =   0
+      Left            =   4320
+      TabIndex        =   4
+      Top             =   360
+      Width           =   2175
+   End
+   Begin VB.ListBox zrsList 
+      BeginProperty Font 
+         Name            =   "宋体"
+         Size            =   15
+         Charset         =   134
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   1560
+      Left            =   0
+      TabIndex        =   3
+      Top             =   8160
+      Width           =   2175
+   End
+   Begin VB.ListBox qiandaoList 
+      BeginProperty Font 
+         Name            =   "宋体"
+         Size            =   15
+         Charset         =   134
+         Weight          =   400
+         Underline       =   0   'False
+         Italic          =   0   'False
+         Strikethrough   =   0   'False
+      EndProperty
+      Height          =   7560
+      Left            =   0
+      Sorted          =   -1  'True
+      TabIndex        =   0
+      Top             =   360
+      Width           =   2175
+   End
+   Begin VB.Label tip 
+      BackStyle       =   0  'Transparent
+      Caption         =   "值日生请勿在此方框输入。"
+      Height          =   540
+      Left            =   2160
+      TabIndex        =   18
+      Top             =   840
+      Width           =   2160
+   End
+   Begin VB.Image TMImage 
+      Height          =   735
+      Left            =   2280
+      MousePointer    =   4  'Icon
+      Picture         =   "Mainform.frx":12FA
+      Stretch         =   -1  'True
+      ToolTipText     =   "点我获取帮助"
+      Top             =   7920
+      Width           =   1935
+   End
+   Begin VB.Label zttext 
+      BackStyle       =   0  'Transparent
+      Height          =   780
+      Left            =   2280
+      TabIndex        =   16
+      Top             =   4200
+      Width           =   2010
+   End
+   Begin VB.Label CopyrightLabel 
+      AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
+      Caption         =   "Copyright(C) XuPeng Studio 2019～2021. 感谢施振展同志提出的建设性意见。 "
+      Height          =   180
+      Left            =   0
+      TabIndex        =   15
+      Top             =   9840
+      Width           =   6480
+   End
+   Begin VB.Label VersionLabel 
+      Alignment       =   2  'Center
+      AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
+      Caption         =   "Version 1.13"
+      Height          =   180
+      Left            =   2280
+      TabIndex        =   11
+      Top             =   1560
+      Width           =   1080
+   End
+   Begin VB.Label records2Label 
+      AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
+      Caption         =   "值日生签到记录"
+      Height          =   180
+      Left            =   4320
+      TabIndex        =   7
+      Top             =   8520
+      Width           =   1260
+   End
+   Begin VB.Label records1Label 
+      AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
+      Caption         =   "签到记录"
+      Height          =   180
+      Left            =   4320
+      TabIndex        =   6
+      Top             =   120
+      Width           =   720
+   End
+   Begin VB.Label qdLabel 
+      AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
+      Caption         =   "未签名单，选择后单击“签到”"
+      Height          =   180
+      Left            =   0
+      TabIndex        =   2
+      Top             =   120
+      Width           =   2520
+   End
+   Begin VB.Label zrsqdLabel 
+      AutoSize        =   -1  'True
+      BackStyle       =   0  'Transparent
+      Caption         =   "值日生签到"
+      Height          =   180
+      Left            =   0
+      TabIndex        =   1
+      Top             =   7920
+      Width           =   900
+   End
+End
+Attribute VB_Name = "Mainform"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = False
+Attribute VB_PredeclaredId = True
+Attribute VB_Exposed = False
+Public tqtime As Integer, undor As Integer
+Dim timelimit As Integer
+Dim names(1 To 100) As String
+Public settime As Date
+Public savepath As String
+Public saveonexit As Integer
+Dim total As Integer
+Dim FormFocused As Boolean
+Dim key(1 To 3) As Long
+Private Const base64 = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/"
+Public passwordtime As Integer
+Private Declare Sub InitCommonControls Lib "comctl32.dll" ()
+Private Declare Function GetForegroundWindow Lib "user32" () As Long
+Private Sub programisrunning()
+    On Error GoTo endprogram
+    Open App.Path + "\pw" For Input As #1
+    Lock #1
+endprogram:
+    If Err.Number <> 0 Then
+        End
+    End If
+End Sub
+Public Sub GenKey()
+    Dim d As Long, phi As Long, e As Long
+    Dim m As Long, X As Long, q As Long
+    Dim p As Long
+    Randomize
+    On Error GoTo top
+top:
+    p = Rnd * 1000 \ 1
+    If IsPrime(p) = False Then GoTo top
+Sel_q:
+    q = Rnd * 1000 \ 1
+    If IsPrime(q) = False Then GoTo Sel_q
+    n = p * q \ 1
+    phi = (p - 1) * (q - 1) \ 1
+    d = Rnd * n \ 1
+    If d = 0 Or n = 0 Or d = 1 Then GoTo top
+    e = Euler(phi, d)
+    If e = 0 Or e = 1 Then GoTo top
+    
+    X = Mult(255, e, n)
+    If Not Mult(X, d, n) = 255 Then
+        DoEvents
+        GoTo top
+    ElseIf Mult(X, d, n) = 255 Then
+        key(1) = e
+        key(2) = d
+        key(3) = n
+    End If
+End Sub
+
+Private Function Euler(ByVal a As Long, ByVal b As Long) As Long
+    On Error GoTo error2
+    r1 = a: r = b
+    p1 = 0: p = 1
+    q1 = 2: q = 0
+    n = -1
+    Do Until r = 0
+        r2 = r1: r1 = r
+        p2 = p1: p1 = p
+        q2 = q1: q1 = q
+        n = n + 1
+        r = r2 Mod r1
+        c = r2 \ r1
+        p = (c * p1) + p2
+        q = (c * q1) + q2
+    Loop
+    s = (b * p1) - (a * q1)
+    If s > 0 Then
+        X = p1
+    Else
+        X = (0 - p1) + a
+    End If
+    Euler = X
+    Exit Function
+    
+error2:
+    Euler = 0
+End Function
+
+Private Function Mult(ByVal X As Long, ByVal p As Long, ByVal m As Long) As Long
+    Y = 1
+    On Error GoTo error1
+    Do While p > 0
+        Do While (p / 2) = (p \ 2)
+            X = (X * X) Mod m
+            p = p / 2
+        Loop
+        Y = (X * Y) Mod m
+        p = p - 1
+    Loop
+    Mult = Y
+    Exit Function
+    
+error1:
+    Y = 0
+End Function
+
+Private Function IsPrime(lngNumber As Long) As Boolean
+    Dim lngCount As Long
+    Dim lngSqr As Long
+    Dim X As Long
+    
+    lngSqr = Sqr(lngNumber) ' get the int square root
+    
+        If lngNumber < 2 Then
+            IsPrime = False
+            Exit Function
+        End If
+    
+    lngCount = 2
+    IsPrime = True
+    
+    If lngNumber Mod lngCount = 0& Then
+        IsPrime = False
+    Exit Function
+    End If
+    
+    lngCount = 3
+    
+    For X& = lngCount To lngSqr Step 2
+    If lngNumber Mod X& = 0 Then
+        IsPrime = False
+        Exit Function
+    End If
+    Next
+End Function
+
+Private Function Base64_Encode(DecryptedText As String) As String
+    Dim c1, c2, c3 As Integer
+    Dim w1 As Integer
+    Dim w2 As Integer
+    Dim w3 As Integer
+    Dim w4 As Integer
+    Dim n As Integer
+    Dim retry As String
+    For n = 1 To Len(DecryptedText) Step 3
+        c1 = Asc(Mid$(DecryptedText, n, 1))
+        c2 = Asc(Mid$(DecryptedText, n + 1, 1) + Chr$(0))
+        c3 = Asc(Mid$(DecryptedText, n + 2, 1) + Chr$(0))
+        w1 = Int(c1 / 4)
+        w2 = (c1 And 3) * 16 + Int(c2 / 16)
+        If Len(DecryptedText) >= n + 1 Then w3 = (c2 And 15) * 4 + Int(c3 / 64) Else w3 = -1
+        If Len(DecryptedText) >= n + 2 Then w4 = c3 And 63 Else w4 = -1
+        retry = retry + mimeencode(w1) + mimeencode(w2) + mimeencode(w3) + mimeencode(w4)
+    Next
+    Base64_Encode = retry
+End Function
+
+Private Function Base64_Decode(a As String) As String
+Dim w1 As Integer
+Dim w2 As Integer
+Dim w3 As Integer
+Dim w4 As Integer
+Dim n As Integer
+Dim retry As String
+   For n = 1 To Len(a) Step 4
+      w1 = mimedecode(Mid$(a, n, 1))
+      w2 = mimedecode(Mid$(a, n + 1, 1))
+      w3 = mimedecode(Mid$(a, n + 2, 1))
+      w4 = mimedecode(Mid$(a, n + 3, 1))
+      If w2 >= 0 Then retry = retry + Chr$(((w1 * 4 + Int(w2 / 16)) And 255))
+      If w3 >= 0 Then retry = retry + Chr$(((w2 * 16 + Int(w3 / 4)) And 255))
+      If w4 >= 0 Then retry = retry + Chr$(((w3 * 64 + w4) And 255))
+   Next
+   Base64_Decode = retry
+End Function
+
+Private Function mimeencode(w As Integer) As String
+   If w >= 0 Then mimeencode = Mid$(base64, w + 1, 1) Else mimeencode = ""
+End Function
+
+Private Function mimedecode(a As String) As Integer
+   If Len(a) = 0 Then mimedecode = -1: Exit Function
+   mimedecode = InStr(base64, a) - 1
+End Function
+
+Public Function Encode(ByVal Inp As String, ByVal e As Long, ByVal n As Long) As String
+    Dim s As String
+    s = ""
+    m = Inp
+    If m = "" Then Exit Function
+    s = Mult(CLng(Asc(Mid(m, 1, 1))), e, n)
+    For i = 2 To Len(m)
+        s = s & "+" & Mult(CLng(Asc(Mid(m, i, 1))), e, n)
+    Next i
+    Encode = Base64_Encode(s)
+End Function
+
+Public Function Decode(ByVal Inp As String, ByVal d As Long, ByVal n As Long) As String
+    St = ""
+    ind = Base64_Decode(Inp)
+    For i = 1 To Len(ind)
+        nxt = InStr(i, ind, "+")
+        If Not nxt = 0 Then
+            tok = Val(Mid(ind, i, nxt))
+        Else
+            tok = Val(Mid(ind, i))
+        End If
+        St = St + Chr(Mult(CLng(tok), d, n))
+        If Not nxt = 0 Then
+            i = nxt
+        Else
+            i = Len(ind)
+        End If
+    Next i
+    Decode = St
+End Function
+
+Private Sub Form_Resize()
+    If Me.WindowState <> 1 Then
+    Dim col2left As Long
+    Dim col2width As Long
+    Dim col3left As Long
+    Dim col3width As Long
+    Dim bordwid As Long
+    Dim bordhei As Long
+    bordwid = Me.Width - Me.ScaleWidth
+    bordhei = Me.Height - Me.ScaleHeight
+    If Me.ScaleWidth < 6570 Then Me.Width = 6570 + bordwid
+    If Me.ScaleHeight < 6690 Then Me.Height = 6690 + bordhei
+    col2left = (Me.ScaleWidth - 210) / 3 + 105
+    col3left = (Me.ScaleWidth - 210) * 2 / 3 + 210
+    col2width = (Me.ScaleWidth - 210) / 3
+    col3width = (Me.ScaleWidth - 210) / 3
+    qiandaoList.Left = 0
+    zrslist.Left = 0
+    zrsqdLabel.Left = 0
+    CopyrightLabel.Left = 0
+    NameCombo.Left = col2left
+    CopyrightLabel.top = Me.ScaleHeight - CopyrightLabel.Height - 105
+    qiandaoList.top = qdLabel.top + qdLabel.Height
+    recordsList(0).top = records1Label.top + records1Label.Height
+    qiandaoList.Height = (Me.ScaleHeight - qdLabel.Height * 3 - 105 * 2) * 0.85
+    zrsqdLabel.top = qiandaoList.top + qiandaoList.Height
+    zrslist.top = zrsqdLabel.top + zrsqdLabel.Height
+    zrslist.Height = (Me.ScaleHeight - 180 * 3 - 105 * 2) * 0.15
+    recordsList(0).Height = (Me.ScaleHeight - 180 * 3 - 105 * 2) * 0.9
+    records2Label.top = recordsList(0).Height + recordsList(0).top
+    recordsList(1).top = records2Label.Height + records2Label.top
+    recordsList(1).Height = (Me.ScaleHeight - 180 * 3 - 105 * 2) * 0.1
+    UndoCommand.top = CopyrightLabel.top - UndoCommand.Height - 210
+    TMImage.top = UndoCommand.top - TMImage.Height - 105
+    tip.Left = -tip.Width / 2 + Me.ScaleWidth / 2
+    qiandaoCommand.Left = col2left
+    VersionLabel.Left = -VersionLabel.Width / 2 + Me.ScaleWidth / 2
+    zrsCommand.Left = col2left
+    PasswordText.Left = col2left
+    AdminCommand.Left = col2left
+    outputCommand.Left = col2left
+    zttext.Left = col2left
+    TMImage.Left = -TMImage.Width / 2 + Me.ScaleWidth / 2
+    UndoCommand.Left = col2left
+    records1Label.Left = col3left
+    records2Label.Left = col3left
+    recordsList(0).Left = col3left
+    recordsList(1).Left = col3left
+    NameCombo.Width = col2width
+    qiandaoCommand.Width = col2width
+    zrsCommand.Width = col2width
+    PasswordText.Width = col2width
+    AdminCommand.Width = col2width
+    outputCommand.Width = col2width
+    zttext.Width = col2width
+    UndoCommand.Width = col2width
+    records1Label.Width = col3width
+    records2Label.Width = col3width
+    recordsList(0).Width = col3width
+    recordsList(1).Width = col3width
+    qiandaoList.Width = col2width
+    zrslist.Width = col2width
+    zrsqdLabel.Width = col2width
+    End If
+End Sub
+
+Private Sub formfocus_Timer()
+    FormFocused = Me.hWnd = GetForegroundWindow()
+End Sub
+
+Private Sub NameCombo_Change()
+    If qiandaoList.ListIndex >= 0 Then qiandaoList.Selected(qiandaoList.ListIndex) = False
+    For i = 1 To NameCombo.ListCount
+        If NameCombo.List(i - 1) = NameCombo.Text Then
+            qiandaoCommand.Enabled = True
+            qiandaoList.Selected(i - 1) = True
+            Exit Sub
+        End If
+    Next i
+    qiandaoCommand.Enabled = False
+End Sub
+
+Private Sub NameCombo_Click()
+    qiandaoCommand.Enabled = True
+    qiandaoList.Selected(NameCombo.ListIndex) = True
+    Exit Sub
+End Sub
+
+Private Sub NameCombo_KeyDown(KeyCode As Integer, Shift As Integer)
+    If KeyCode = vbKeyReturn Then Call qiandaocommand_Click
+End Sub
+
+Private Sub PasswordText_KeyDown(KeyCode As Integer, Shift As Integer)
+    If KeyCode = vbKeyReturn Then Call adminCommand_Click: KeyCode = 0
+End Sub
+
+Private Sub qiandaocommand_Click()
+    For i = 1 To qiandaoList.ListCount
+        If qiandaoList.List(i - 1) = NameCombo.Text Then Exit For
+    Next i
+    If i > qiandaoList.ListCount Then Exit Sub
+    recordsList(0).AddItem qiandaoList.List(i - 1) + "  " + CStr(DateTime.Time)
+    qiandaoList.RemoveItem (i - 1)
+    NameCombo.RemoveItem (i - 1)
+    NameCombo.Text = ""
+    qiandaoCommand.Enabled = False
+    outputCommand.Enabled = True
+    UndoCommand.Enabled = True
+    undolimit.Enabled = True
+    UndoCommand.Caption = "撤消(10s)"
+    undor = 1
+    timelimit = 10
+    undolimit.Enabled = False
+    undolimit.Enabled = True
+End Sub
+Private Sub outputcommand_Click()
+    On Error GoTo errortest
+    Dim fs, f, ts, s, ss
+    Dim savetime As String
+    savetime = CStr(DateTime.Year(Date)) + "-" + CStr(DateTime.Month(Date)) + "-" + CStr(DateTime.Day(Date)) + "-" + CStr(DateTime.Hour(Time)) + "-" + CStr(DateTime.Minute(Time)) + "-" + CStr(DateTime.Second(Time))
+    Set fs = CreateObject("Scripting.FileSystemObject")
+    Set f = fs.createtextfile(savepath + "\签到记录" + savetime + ".txt")
+    f.writeline ("记录时间：" + CStr(Date) + "  " + CStr(Time))
+    f.writeline ("签到记录：")
+    For i = 1 To recordsList(0).ListCount
+    f.writeline (recordsList(0).List(i - 1))
+    Next i
+    f.writeline ("--END OF RECORD--")
+    If recordsList(1).ListCount > 0 Then
+    f.writeline ("值日生：")
+    For i = 1 To recordsList(1).ListCount
+    f.writeline (recordsList(1).List(i - 1))
+    Next i
+    f.writeline ("--END OF RECORD--")
+    End If
+    If qiandaoList.ListCount > 0 Then
+    f.writeline ("未签名单：")
+    For i = 1 To qiandaoList.ListCount
+    f.writeline (qiandaoList.List(i - 1) + " 未签")
+    Next i
+    f.writeline ("--END OF RECORD--")
+    End If
+    If zrslist.ListCount > 0 Then
+    f.writeline ("值日生未签名单：")
+    For i = 1 To zrslist.ListCount
+    f.writeline (zrslist.List(i - 1) + " 未签")
+    Next i
+    f.writeline ("--END OF RECORD--")
+    End If
+    If AdminForm.qingjialist.ListCount > 0 Then
+    f.writeline ("请假名单：")
+    For i = 1 To AdminForm.qingjialist.ListCount
+    f.writeline (AdminForm.qingjialist.List(i - 1) + " 请假")
+    Next i
+    f.writeline ("--END OF RECORD--")
+    End If
+    If fs.fileexists(App.Path + "\autosave.classsign") Then
+    Set f = fs.getfile(App.Path + "\autosave.classsign")
+    f.Delete
+    End If
+    outputCommand.Enabled = False
+errortest:
+    If Err.Number <> 0 Then MsgBox ("保存失败。请检查输出路径是否错误。错误原因：" & Chr(10) & Err.Number & Err.Description)
+End Sub
+
+
+
+Private Sub adminCommand_Click()
+    Unlock #1
+    If PasswordText.PasswordChar = "*" Then
+        passwordtime = passwordtime - 1
+        Const ForReading = 1, ForWriting = 2, ForAppending = 3
+        Const TristateUseDefault = -2, TristateTrue = -1, TristateFalse = 0
+        Dim fs, f, ts, s, ss
+        Set fs = CreateObject("Scripting.FileSystemObject")
+        Set f = fs.getfile(App.Path + "\pw")
+        Set ts = f.openastextstream(ForReading, TristateUseDefault)
+        If Decode(ts.readall, key(2), key(3)) = PasswordText.Text Then
+            AdminCommand.Visible = False
+            PasswordText.Visible = False
+            passwordtime = 25
+            AdminForm.Show
+        ElseIf passwordtime = 25 Or (passwordtime Mod 5 <> 0 And passwordtime > 0) Then
+            MsgBox ("密码错误，还可以输入" + CStr(passwordtime Mod 5) + "次")
+        ElseIf passwordtime > 0 Then
+            MsgBox ("密码错误，请在" + CStr(25 - passwordtime) + "分钟后重试")
+            passwordTimer.Enabled = True
+            PasswordText.Enabled = False
+            AdminCommand.Enabled = False
+            PasswordText.Text = ""
+            Call PasswordText_Lostfocus
+        Else
+            MsgBox ("还不赶紧好好学习！")
+            AdminCommand.Enabled = False
+            PasswordText.Enabled = False
+            Call PasswordText_Lostfocus
+            PasswordText.Text = "您已无法输入密码。"
+        End If
+    End If
+    PasswordText.PasswordChar = ""
+    If Not passwordTimer.Enabled And passwordtime > 0 Then
+        PasswordText.Text = "输入管理员密码操作"
+        If PasswordText.Visible Then PasswordText.SetFocus: Call PasswordText_gotfocus
+    End If
+    Lock #1
+End Sub
+
+
+
+
+Private Sub qiandaoList_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    If FormFocused Then
+    qiandaoList.SetFocus
+    End If
+End Sub
+
+Private Sub recordsList_Click(Index As Integer)
+    If recordsList(Index).ListIndex >= 0 Then recordsList(Index).Selected(recordsList(Index).ListIndex) = False
+End Sub
+
+Private Sub recordsList_MouseMove(Index As Integer, Button As Integer, Shift As Integer, X As Single, Y As Single)
+    If FormFocused Then
+    recordsList(Index).SetFocus
+    End If
+End Sub
+
+Private Sub Timer1_Timer()
+    
+End Sub
+
+Private Sub TMImage_Click()
+    Shell ("explorer.exe " + App.Path + "\help.html")
+End Sub
+
+Private Sub UndoCommand_Click()
+    If recordsList(undor - 1).List(recordsList(undor - 1).ListCount - 1) = "以下迟到：" Then
+    Call undoqd(undor - 1, recordsList(undor - 1).ListCount - 3)
+    Else
+    Call undoqd(undor - 1, recordsList(undor - 1).ListCount - 1)
+    End If
+    timelimit = 0
+    UndoCommand.Enabled = False
+    Call undolimit_Timer
+End Sub
+
+Private Sub undolimit_Timer()
+    timelimit = timelimit - 1
+    UndoCommand.Caption = "撤消(" + CStr(timelimit) + "s)"
+    If timelimit <= 0 Then
+        timelimit = 10
+        UndoCommand.Caption = "撤消"
+        undolimit.Enabled = False
+        UndoCommand.Enabled = False
+    End If
+End Sub
+
+Private Sub zrsCommand_Click()
+If zrslist.ListIndex >= 0 Then
+
+    recordsList(1).AddItem zrslist.List(zrslist.ListIndex) + "  " + CStr(DateTime.Time)
+    zrslist.RemoveItem (zrslist.ListIndex)
+    zrsCommand.Enabled = False
+    outputCommand.Enabled = True
+    UndoCommand.Enabled = True
+    undolimit.Enabled = True
+    undor = 2
+    timelimit = 10
+    UndoCommand.Caption = "撤消(10s)"
+    undolimit.Enabled = False
+    undolimit.Enabled = True
+End If
+End Sub
+
+Public Sub undoqd(listnum As Integer, listind As Integer)
+    On Error GoTo undoerr
+    For i = 1 To total
+        If names(i) = Mid(recordsList(listnum).List(listind), 1, Len(names(i))) Then
+            recordsList(listnum).RemoveItem (listind)
+            Select Case listnum
+                Case 0
+                    qiandaoList.AddItem (names(i)): NameCombo.AddItem (names(i))
+                Case 1
+                    zrslist.AddItem (names(i))
+            End Select
+            Exit For
+        End If
+    Next i
+undoerr:
+    If Err.Number <> 0 Then MsgBox ("由于未知原因，程序出错了，联系代码编写者更改此代码。")
+End Sub
+
+Private Sub Form_Initialize()
+    InitCommonControls
+End Sub
+
+Public Sub Form_Load()
+On Error GoTo errorhandler1
+    programisrunning
+    Const ForReading = 1, ForWriting = 2, ForAppending = 3
+    Const TristateUseDefault = -2, TristateTrue = -1, TristateFalse = 0
+    Dim fs, f, ts, s, ss
+    Set fs = CreateObject("Scripting.FileSystemObject")
+    VersionLabel.Caption = "Version " & App.Major & "." & App.Minor & App.Revision
+    key(1) = 33965
+    key(2) = 32717
+    key(3) = 41831
+    passwordtime = 25
+    If fs.fileexists(App.Path + "\autosave.classsign") Then
+        sure = MsgBox("发现未完成的签到，是否恢复？", vbYesNo)
+        If sure = vbYes Then
+            Call recoveqiandao
+            If fs.fileexists(App.Path + "\settingsaved.classsign") Then
+                Set f = fs.getfile(App.Path + "\settingsaved.classsign")
+                Set ts = f.openastextstream(ForReading, TristateUseDefault)
+                savepath = Decode(ts.readline, 32717, 41831)
+                saveonexit = Val(Decode(ts.readline, 32717, 41831))
+            Else
+                savepath = App.Path
+                saveonexit = 1
+            End If
+            Exit Sub
+        Else
+            Set f = fs.getfile(App.Path + "\autosave.classsign")
+            f.Delete
+        End If
+    End If
+    Set f = fs.getfile(App.Path + "\mingdan.txt")
+    Set ts = f.openastextstream(ForReading, TristateUseDefault)
+    For i = 1 To 100
+        names(i) = ""
+    Next i
+    total = 0
+    Do While Not ts.atendofstream
+        total = total + 1
+        s = ts.readline
+        qiandaoList.AddItem s
+        NameCombo.AddItem s
+        If total >= 100 Then MsgBox ("人数过多，后面就不能添加了。"): Exit Do
+    Loop
+    For i = 1 To qiandaoList.ListCount
+        names(i) = qiandaoList.List(i - 1)
+    Next i
+    ts.Close
+    If fs.fileexists(App.Path + "\settingsaved.classsign") Then
+    Set f = fs.getfile(App.Path + "\settingsaved.classsign")
+    Set ts = f.openastextstream(ForReading, TristateUseDefault)
+    savepath = Decode(ts.readline, 32717, 41831)
+    saveonexit = Val(Decode(ts.readline, 32717, 41831))
+    settime = TimeValue(Decode(ts.readline, 32717, 41831))
+    tqtime = Val(Decode(ts.readline, 32717, 41831))
+    Else
+    savepath = App.Path
+    saveonexit = 1
+    settime = TimeValue("23:59:59")
+    tqtime = 0
+    End If
+errorhandler1:
+     If Err.Number <> 0 Then
+     savepath = App.Path
+    saveonexit = 1
+        settime = TimeValue("23:59:59")
+        tqtime = 0
+    End If
+End Sub
+
+Private Sub Form_Unload(Cancel As Integer)
+    If lineTimer.Enabled And AdminCommand.Visible And qiandaoList.ListCount + zrslist.ListCount > 0 Then
+        Cancel = 1
+        MsgBox ("无法关闭，请检查您是否处于以下几种情况：" & Chr(10) & "1.还有人没签到；" & Chr(10) & "2.签到时间没截止；" & Chr(10) & "3.没以管理员身份登录。")
+    Else
+        If outputCommand.Enabled And saveonexit = 1 Then Call outputcommand_Click
+        Cancel = 0
+    End If
+    If Cancel = 0 Then
+        Unlock #1
+        Close #1
+        End
+    End If
+End Sub
+
+Private Sub qiandaoList_Click()
+Dim X As Integer
+X = qiandaoList.ListIndex
+If qiandaoList.ListIndex >= 0 Then
+    NameCombo.Text = CStr(qiandaoList.List(qiandaoList.ListIndex))
+    qiandaoCommand.Enabled = True
+    End If
+    If zrslist.ListIndex >= 0 Then
+    zrslist.Selected(zrslist.ListIndex) = False
+    zrsCommand.Enabled = False
+    If X >= 0 Then qiandaoList.Selected(X) = True
+    End If
+End Sub
+
+Private Sub zrshx_Timer()
+If TimeSerial(Hour(settime), Minute(settime) - tqtime, Second(settime)) < DateTime.Time Then
+    recordsList(1).AddItem "--------------"
+    recordsList(1).AddItem "以下迟到："
+    zrshx.Enabled = False
+End If
+End Sub
+
+Private Sub zrslist_Click()
+Dim X As Integer
+    X = zrslist.ListIndex
+    If zrslist.ListIndex >= 0 Then zrsCommand.Enabled = True
+If qiandaoList.ListIndex >= 0 Then
+    qiandaoCommand.Enabled = False
+    NameCombo.Text = ""
+    If X >= 0 Then zrslist.Selected(X) = True
+    End If
+End Sub
+
+Private Sub PasswordText_gotfocus()
+    If PasswordText.Text = "输入管理员密码操作" Then PasswordText.PasswordChar = "*":     PasswordText.Text = ""
+End Sub
+
+Private Sub PasswordText_Lostfocus()
+    If PasswordText.Text = "" Then PasswordText.PasswordChar = ""
+    If PasswordText.Text = "" And ((passwordtime > 0 And passwordtime Mod 5 <> 0) Or passwordtime = 25) Then PasswordText.Text = "输入管理员密码操作"
+End Sub
+Private Sub lineTimer_Timer()
+    If settime < DateTime.Time Then
+        recordsList(0).AddItem "------------"
+        recordsList(0).AddItem "以下迟到："
+        lineTimer.Enabled = False
+        If passwordtime = 0 Then PasswordText.Text = ""
+        Call PasswordText_Lostfocus
+        PasswordText.Enabled = True
+        AdminCommand.Enabled = True
+        passwordtime = 25
+    End If
+End Sub
+
+Private Sub passwordTimer_Timer()
+Static timeout As Integer
+timeout = timeout + 1
+PasswordText.Enabled = False
+AdminCommand.Enabled = False
+PasswordText.Text = CStr((25 - passwordtime) * 60 - timeout) + "秒后解锁。"
+If timeout >= (25 - passwordtime) * 60 Then
+    AdminCommand.Enabled = True
+    timeout = 0
+    PasswordText.Enabled = True
+    PasswordText.Text = "输入管理员密码操作"
+    passwordTimer.Enabled = False
+End If
+End Sub
+
+
+
+Private Sub zrsList_MouseMove(Button As Integer, Shift As Integer, X As Single, Y As Single)
+    If FormFocused Then
+    zrslist.SetFocus
+    End If
+End Sub
+
+Private Sub zttimer_Timer()
+    Static autosave As Integer
+    Dim ctd As Long
+    Dim outputtext As String
+    ctd = DateTime.DateDiff("s", DateTime.Time, settime)
+    autosave = autosave + 1
+    If autosave = 60 Then
+        autosave = 0
+        If outputCommand.Enabled Then
+            zttext.Caption = "正在保存自动恢复文件......"
+            Call autosavefile
+            zttext.Caption = "已保存自动恢复文件。"
+            Exit Sub
+        End If
+    End If
+    If Me.Enabled And qiandaoList.ListCount + zrslist.ListCount > 0 Then
+        outputtext = "签到正在进行，"
+    ElseIf Not Me.Enabled Then
+        outputtext = "签到已暂停，管理员进行某些操作后继续"
+        GoTo opt
+    Else
+        outputtext = "当前已完成签到，请单击“输出记录”按钮以输出记录"
+        GoTo opt
+    End If
+    ctd = DateDiff("s", DateTime.Time, settime)
+    If ctd > 999 Then
+        outputtext = outputtext & CStr(ctd \ 60) & "分" & CStr(ctd Mod 60) & "秒后签到将成为迟到。"
+    ElseIf ctd >= 0 Then
+        outputtext = outputtext & CStr(ctd) & "秒后签到将成为迟到。"
+    Else
+        outputtext = outputtext & "现在签到将成为迟到。"
+        GoTo opt
+    End If
+    If zrslist.ListCount = 0 Then GoTo opt
+    ctd = DateTime.DateDiff("s", DateTime.Time, settime) - tqtime * 60
+    If ctd > 999 Then
+        outputtext = outputtext & "值日生在" & CStr(ctd \ 60) & "分" & CStr(ctd Mod 60) & "秒后签到将成为迟到。"
+    ElseIf ctd >= 0 Then
+        outputtext = outputtext & "值日生在" & CStr(ctd) & "秒后签到将成为迟到。"
+    Else
+        outputtext = outputtext & "值日生现在签到将成为迟到。"
+    End If
+opt:
+    zttext.Caption = outputtext
+End Sub
+Private Sub autosavefile()
+    On Error GoTo errortest
+    Dim fs, f, ts, s, ss
+    Dim savetime As String
+    Set fs = CreateObject("Scripting.FileSystemObject")
+    Set f = fs.createtextfile(App.Path + "\autosave.classsign")
+    f.writeline Encode(CStr(settime), key(1), key(3))
+    f.writeline Encode(CStr(tqtime), key(1), key(3))
+    For i = 1 To totals
+        f.writeline Encode(names(i), key(1), key(3))
+    Next i
+    f.writeline Encode("--END OF RECORD--", key(1), key(3))
+    For i = 1 To recordsList(0).ListCount
+        f.writeline Encode(recordsList(0).List(i - 1), key(1), key(3))
+    Next i
+    f.writeline Encode("--END OF RECORD--", key(1), key(3))
+    For i = 1 To recordsList(1).ListCount
+        f.writeline Encode(recordsList(1).List(i - 1), key(1), key(3))
+    Next i
+    f.writeline Encode("--END OF RECORD--", key(1), key(3))
+    For i = 1 To qiandaoList.ListCount
+        f.writeline Encode(qiandaoList.List(i - 1), key(1), key(3))
+    Next i
+    f.writeline Encode("--END OF RECORD--", key(1), key(3))
+    For i = 1 To zrslist.ListCount
+    f.writeline Encode(zrslist.List(i - 1), key(1), key(3))
+    Next i
+    f.writeline Encode("--END OF RECORD--", key(1), key(3))
+    For i = 1 To AdminForm.qingjialist.ListCount
+    f.writeline Encode(AdminForm.qingjialist.List(i - 1), key(1), key(3))
+    Next i
+    f.writeline Encode("--END OF RECORD--", key(1), key(3))
+errortest:
+    If Err.Number <> 0 Then MsgBox ("保存失败。请检查输出路径是否错误。错误原因：" & Chr(10) & Err.Number & Err.Description)
+
+End Sub
+Private Sub recoveqiandao()
+    Dim fs, f, ts
+    Dim notline As Boolean, notzrsline As Boolean
+    lineTimer.Enabled = False: zrshx.Enabled = False
+    Const ForReading = 1, ForWriting = 2, ForAppending = 3
+    Const TristateUseDefault = -2, TristateTrue = -1, TristateFalse = 0
+    Set fs = CreateObject("Scripting.FileSystemObject")
+    Set f = fs.getfile(App.Path + "\autosave.classsign")
+    Set ts = f.openastextstream(ForReading, TristateUseDefault)
+     settime = TimeValue(Decode(ts.readline, key(2), key(3)))
+     tqtime = Val(Decode(ts.readline, key(2), key(3)))
+    Do While True
+        X = Decode(ts.readline, key(2), key(3))
+        If X = "--END OF RECORD--" Then Exit Do
+        names(i) = X
+        totals = totals + 1
+    Loop
+    NameCombo.Clear
+    recordsList(0).Clear
+    Do While True
+        X = Decode(ts.readline, key(2), key(3))
+        If X = "--END OF RECORD--" Then Exit Do
+        If X = "以下迟到：" Then notline = True
+        recordsList(0).AddItem X
+    Loop
+    recordsList(1).Clear
+    Do While True
+        X = Decode(ts.readline, key(2), key(3))
+        If X = "--END OF RECORD--" Then Exit Do
+        If X = "以下迟到：" Then notzrsline = True
+        recordsList(1).AddItem X
+    Loop
+    qiandaoList.Clear
+    Do While True
+        X = Decode(ts.readline, key(2), key(3))
+        If X = "--END OF RECORD--" Then Exit Do
+        qiandaoList.AddItem X
+        NameCombo.AddItem X
+    Loop
+    zrslist.Clear
+    Do While True
+        X = Decode(ts.readline, key(2), key(3))
+        If X = "--END OF RECORD--" Then Exit Do
+        zrslist.AddItem X
+    Loop
+    AdminForm.qingjialist.Clear
+    Do While True
+        X = Decode(ts.readline, key(2), key(3))
+        If X = "--END OF RECORD--" Then Exit Do
+        AdminForm.qingjialist.AddItem X
+    Loop
+    outputCommand.Enabled = True
+    ts.Close
+    lineTimer.Enabled = Not notline
+    zrshx.Enabled = Not notzrsline
+End Sub

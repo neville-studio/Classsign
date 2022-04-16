@@ -1,0 +1,102 @@
+[Root]
+Most Recent Package=标准安装软件包 1
+
+
+[Package|标准安装软件包 1|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=C:\Documents and Settings\XuPeng Studio\My Documents\班级签到系统 V1.03\Package
+
+[Package|标准安装软件包 1|Configure DAO ISAMs]
+Applicable=No
+
+[Package|标准安装软件包 1|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|标准安装软件包 1|Files Found]
+
+[Package|标准安装软件包 1|Files Released]
+
+[Package|标准安装软件包 1|Missing Dependency Information]
+
+[Package|标准安装软件包 1|Out-of-Date Dependency Information]
+
+[Package|标准安装软件包 1|Files Added]
+C:\Documents and Settings\XuPeng Studio\My Documents\班级签到系统 V1.03\classsign.exe.manifest=
+C:\Documents and Settings\XuPeng Studio\My Documents\班级签到系统 V1.03\help.html=
+C:\Documents and Settings\XuPeng Studio\My Documents\班级签到系统 V1.03\mingdan.txt=
+
+[Package|标准安装软件包 1|Files Removed]
+
+[Package|标准安装软件包 1|Files In Project]
+C:\Documents and Settings\XuPeng Studio\My Documents\班级签到系统 V1.03\classsign.exe=Yes
+C:\WINDOWS\system32\msvbvm60.dll=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\WINDOWS\system32\VB6CHS.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINDOWS\system32\VB6STKIT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+C:\Documents and Settings\XuPeng Studio\My Documents\班级签到系统 V1.03\classsign.exe.manifest=Yes
+C:\Documents and Settings\XuPeng Studio\My Documents\班级签到系统 V1.03\help.html=Yes
+C:\Documents and Settings\XuPeng Studio\My Documents\班级签到系统 V1.03\mingdan.txt=Yes
+
+[Package|标准安装软件包 1|Configure Registry Files]
+Applicable=No
+
+[Package|标准安装软件包 1|Configure Remote Servers]
+Applicable=No
+
+[Package|标准安装软件包 1|Install Locations]
+C:\Documents and Settings\XuPeng Studio\My Documents\班级签到系统 V1.03\classsign.exe=$(AppPath)
+C:\WINDOWS\system32\msvbvm60.dll=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\system32\VB6CHS.DLL=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\system32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\Documents and Settings\XuPeng Studio\My Documents\班级签到系统 V1.03\classsign.exe.manifest=$(AppPath)
+C:\Documents and Settings\XuPeng Studio\My Documents\班级签到系统 V1.03\help.html=$(AppPath)
+C:\Documents and Settings\XuPeng Studio\My Documents\班级签到系统 V1.03\mingdan.txt=$(AppPath)
+
+[Package|标准安装软件包 1|Configure Shared Files]
+Applicable=Yes
+C:\Documents and Settings\XuPeng Studio\My Documents\班级签到系统 V1.03\classsign.exe=No
+C:\Documents and Settings\XuPeng Studio\My Documents\班级签到系统 V1.03\classsign.exe.manifest=No
+C:\Documents and Settings\XuPeng Studio\My Documents\班级签到系统 V1.03\help.html=No
+C:\Documents and Settings\XuPeng Studio\My Documents\班级签到系统 V1.03\mingdan.txt=No
+
+[Package|标准安装软件包 1|Distribution]
+Type=single
+Size=
+Title=班级签到系统
+
+[Package|标准安装软件包 1|IconGroups]
+Group0=$(Programs)
+PrivateGroup0=-1
+Parent0=
+
+[Package|标准安装软件包 1|$(Programs)]
+Icon1=classsign.exe
+Title1=班级签到系统
+StartIn1=$(AppPath)
+Key1=Icon3
+
+[Package|标准安装软件包 1|Package]
+PackageFolder=C:\Documents and Settings\XuPeng Studio\My Documents\班级签到系统 V1.03\Package
+ProjectFolder=C:\Documents and Settings\XuPeng Studio\My Documents\班级签到系统 V1.03
+ServerSideCab=
+File1=C:\Documents and Settings\XuPeng Studio\My Documents\班级签到系统 V1.03\Package\setup.exe
+File2=C:\Documents and Settings\XuPeng Studio\My Documents\班级签到系统 V1.03\Package\Setup.Lst
+File3=C:\Documents and Settings\XuPeng Studio\My Documents\班级签到系统 V1.03\Package\classsign.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
